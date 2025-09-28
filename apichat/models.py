@@ -11,7 +11,6 @@ from django.db import models
 #         return self.topic
 
 
-
 class DebateSession(models.Model):
     topic = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
@@ -22,6 +21,5 @@ class ChatMessage(models.Model):
     session = models.ForeignKey(
         DebateSession, related_name="messages", on_delete=models.CASCADE
     )
-    role = models.CharField(max_length=10)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)

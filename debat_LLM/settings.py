@@ -88,11 +88,7 @@ WSGI_APPLICATION = "debat_LLM.wsgi.application"
 #         default=os.getenv('SUPABASE_DB_URL')
 #     )
 # }
-DATABASES = {
-    'default': dj_database_url.config(
-        default=os.getenv('SUPABASE_DB_URL')
-    )
-}
+DATABASES = {"default": dj_database_url.config(default=os.getenv("SUPABASE_DB_URL"))}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators

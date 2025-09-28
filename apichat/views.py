@@ -49,7 +49,6 @@ class GroqChatAPIView(APIView):
         user_prompt = request.data.get("prompt")
         session_id = request.data.get("sessionId")
         topic = request.data.get("topic")
-        pihak = request.data.get("pihak")
 
         if session_id:
             try:
@@ -59,12 +58,13 @@ class GroqChatAPIView(APIView):
                     {"error": "Sesi debat tidak ditemukan."},
                     status=status.HTTP_404_NOT_FOUND,
                 )
-        else:  
+        else:
             session = DebateSession.objects.create(topic=topic)
-            user_prompt = f"Topik: {topic}. Anda adalah Pihak {pihak}"
+            user_prompt = f"{user_prompt}"
+            print(f"User Prompt : {user_prompt}")
 
         print(session)
-        ChatMessage.objects.create(session=session, role="user", content=user_prompt)
+        ChatMessage.objects.create(session=session, content=user_prompt)
         print("User prompt: ", user_prompt, "sessionID : ", session)
         ai_response_text = get_groq_response(session.id, user_prompt)
         return Response(
