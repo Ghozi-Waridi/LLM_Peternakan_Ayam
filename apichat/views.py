@@ -44,11 +44,13 @@ class GroqChatAPIView(APIView):
     Bisa memulai sesi baru atau melanjutkan yang sudah ada.
     """
 
+    ### Ada kesalahan harusnya bagian role tidak perlu di hapus
+    ### supaya kita bisa memisahkan antara respone dari user dan respone dari AI.
     def post(self, request, *args, **kwargs):
         print("Coba : ", request.data)
         user_prompt = request.data.get("prompt")
         session_id = request.data.get("sessionId")
-        topic = request.data.get("topic")
+        # topic = request.data.get("topic")
 
         if session_id:
             try:
@@ -59,7 +61,7 @@ class GroqChatAPIView(APIView):
                     status=status.HTTP_404_NOT_FOUND,
                 )
         else:
-            session = DebateSession.objects.create(topic=topic)
+            session = DebateSession.objects.create(topic=user_prompt)
             user_prompt = f"{user_prompt}"
             print(f"User Prompt : {user_prompt}")
 
